@@ -1,28 +1,43 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    /* Language and Environment */
+    "target": "ES2020",                          // Set the JavaScript version for output
+    "module": "commonjs",                        // Specify module system
+    "lib": ["ES2020"],                           // Include type definitions for ES2020
+
+    /* Emit */
+    "outDir": "./dist",                          // Redirect output structure to the directory
+    "rootDir": "./src",                          // Specify the root directory of input files
+    "removeComments": true,                      // Do not emit comments to output
+    "noEmitOnError": true,                       // Do not emit outputs if any errors were reported
+
+    /* Interop Constraints */
+    "esModuleInterop": true,                     // Emit additional JavaScript to ease support for importing CommonJS modules
+    "allowSyntheticDefaultImports": true,        // Allow 'import x from y' when a module doesn't have a default export
+    "forceConsistentCasingInFileNames": true,   // Ensure that casing is correct in imports
+
+    /* Type Checking */
+    "strict": true,                              // Enable all strict type-checking options
+    "noImplicitAny": true,                       // Raise error on expressions and declarations with an implied 'any' type
+    "strictNullChecks": true,                    // Enable strict null checks
+    "strictFunctionTypes": true,                 // Enable strict checking of function types
+    "strictBindCallApply": true,                 // Enable strict 'bind', 'call', and 'apply' methods on functions
+    "strictPropertyInitialization": true,        // Enable strict checking of property initialization in classes
+    "noImplicitThis": true,                      // Raise error on 'this' expressions with an implied 'any' type
+    "alwaysStrict": true,                        // Parse in strict mode and emit "use strict" for each source file
+
+    /* Completeness */
+    "skipLibCheck": true,                        // Skip type checking all .d.ts files
+    
+    /* Node.js */
+    "types": ["node"]                            // Include Node.js type definitions
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
 
