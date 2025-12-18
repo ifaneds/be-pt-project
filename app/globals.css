@@ -1,0 +1,156 @@
+/* ============================================================================
+   GLOBAL STYLES - Applied to all pages
+   ============================================================================
+   This file contains CSS that applies globally across your entire application.
+   Add global styles, CSS variables, resets, and utility classes here.
+   
+   For page-specific styles, create a CSS module or use Tailwind classes.
+   ============================================================================ */
+
+/* CSS Reset - Remove default browser styling */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+
+:root {
+  --primary-color: #3A7289;
+  --secondary-color: #3A2112;
+  --accent-color: #579FBB;
+  --accent-color-2: #FF7600;
+  --accent-color-3: #919CA6;
+  --text-color: #3A7289;
+}
+
+
+body {
+  /* Roboto is the primary font, with system fonts as fallbacks */
+  font-family: var(--font-roboto), 'Roboto', -apple-system, BlinkMacSystemFont, 
+    'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+}
+
+/* Global main element styling */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Global typography styles */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+p {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.header-logo {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  /* Use the actual SVG file as a mask */
+  mask: url('/be-logo.svg') no-repeat center;
+  mask-size: contain;
+  -webkit-mask: url('/be-logo.svg') no-repeat center;
+  -webkit-mask-size: contain;
+  /* Control the color with background-color - inherits from parent */
+  background-color: currentColor;
+  transition: background-color 0.2s ease;
+}   
+
+.header-link {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: 20px;
+  transition: color 0.2s ease;
+}
+
+.header-link:hover {
+  color: var(--accent-color);
+}
+
+.header-link:active {
+  color: var(--accent-color-2);
+}
+
+/* Active state for currently selected navigation link */
+.header-link-active {
+  color: var(--accent-color-2) !important;
+  font-weight: 700;
+}
+
+.header-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.small-logo {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  top: 10px;
+}
+
+/* Filter Bar Styles */
+.filter-bar {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.filter-button {
+  padding: 0.5rem 1rem;
+  margin: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: normal;
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+.filter-button:hover {
+  background-color: rgba(255, 118, 0, 0.1);
+}
+
+.filter-button-active {
+  font-weight: bold;
+  background-color: var(--accent-color-2);
+  color: white;
+}
+
+.filter-button-active:hover {
+  background-color: var(--accent-color-2);
+}
+
+/* TODO: Add more global styles as needed:
+   - Utility classes
+   - Animation keyframes
+   - Media queries for responsive design
+   - Print styles
+*/
+

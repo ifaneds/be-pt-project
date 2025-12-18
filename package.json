@@ -1,38 +1,31 @@
 {
   "name": "be-pt-project",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "build:client": "esbuild src/client/index.ts src/client/about.ts src/client/contact.ts --bundle --format=iife --outdir=public/scripts --target=es2020",
-    "watch:client": "esbuild src/client/index.ts src/client/about.ts src/client/contact.ts --bundle --format=iife --outdir=public/scripts --target=es2020 --watch",
-    "watch": "tsc --watch",
-    "dev": "concurrently \"tsx watch src/index.ts\" \"npm run watch:client\" \"browser-sync start --config bs-config.js\"",
-    "start": "tsx src/index.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ifaneds/be-pt-project.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ifaneds/be-pt-project/issues"
-  },
-  "homepage": "https://github.com/ifaneds/be-pt-project#readme",
-  "description": "",
-  "devDependencies": {
-    "@types/express": "^5.0.6",
-    "@types/node": "^24.10.2",
-    "browser-sync": "^3.0.4",
-    "concurrently": "^9.2.1",
-    "esbuild": "^0.27.1",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "@sanity/block-content-to-react": "^3.0.0",
+    "@sanity/client": "^7.13.2",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^4.22.0",
+    "next": "^14.2.0",
+    "next-sanity": "^11.6.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sanity": "^4.22.0",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.0",
+    "typescript": "^5.5.0"
   }
 }
