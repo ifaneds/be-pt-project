@@ -31,6 +31,15 @@ export async function getDocuments(filterType?: string) {
   return client.fetch(query)
 }
 
+// Get all slugs for static export (blog, guide, story)
+export async function getSlugs(): Promise<{ slug: string }[]> {
+  const query = groq`*[_type in ["blog", "guide", "story"] && defined(slug.current)] {
+    "slug": slug.current
+  }`
+  const docs = await client.fetch<{ slug: string }[]>(query)
+  return docs.filter((d) => d.slug)
+}
+
 export async function getDocumentBySlug(slug: string) {
   const query = groq`*[
     _type in ["blog", "guide", "story"] && slug.current == $slug

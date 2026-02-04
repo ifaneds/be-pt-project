@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import FilterBar from '../components/filterBar'
 import ResourceList from '../components/ResourceList'
@@ -11,11 +11,10 @@ const filterOptions = [
   { label: 'Stories', value: 'story' },
 ]
 
-export default function BlogPage() {
+function BlogPageContent() {
   const searchParams = useSearchParams()
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'blog' | 'guide' | 'story'>('all')
 
-  // Read filter from URL on mount
   useEffect(() => {
     const filter = searchParams.get('filter')
     if (filter === 'blog' || filter === 'guide' || filter === 'story') {
@@ -47,5 +46,30 @@ export default function BlogPage() {
         </div>
       </section>
     </main>
+  )
+}
+
+export default function BlogPage() {
+  return (
+    <Suspense fallback={
+      <main>
+        <section className="hero-section">
+          <div className="hero-container">
+            <h1 className="hero-title">Resources</h1>
+            <p className="hero-tagline">
+              Blog posts, guides, and stories — designed to build confidence and keep training simple.
+            </p>
+          </div>
+        </section>
+        <section className="loopgroep-section">
+          <div className="loopgroep-container">
+            <div className="loopgroep-header" />
+            <div className="muted" style={{ padding: '2rem' }}>Loading…</div>
+          </div>
+        </section>
+      </main>
+    }>
+      <BlogPageContent />
+    </Suspense>
   )
 }

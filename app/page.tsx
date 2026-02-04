@@ -1,6 +1,7 @@
 
 'use client'
 
+import Link from 'next/link'
 import Hero from './components/Hero'
 import LoopgroepCard from './components/LoopgroepCard'
 import FAQ from './components/FAQ'
@@ -97,8 +98,8 @@ export default function Home() {
             ))}
           </div>
           <div className="hero-cta" style={{ marginTop: '2rem' }}>
-            <a href="/contact" className="hero-btn hero-btn-primary">Start Your Journey</a>
-            <a href="/about" className="hero-btn hero-btn-secondary">Learn More</a>
+            <Link href="/contact" className="hero-btn hero-btn-primary">Start Your Journey</Link>
+            <Link href="/about" className="hero-btn hero-btn-secondary">Learn More</Link>
           </div>
         </div>
         <div className="hero-image-wrapper">

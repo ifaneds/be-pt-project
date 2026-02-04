@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import TeamMemberCard from '../components/TeamMemberCard'
 import Image from 'next/image'
 
@@ -15,7 +16,7 @@ export default function About() {
             Personal training and coaching to help you build strength, confidence and sustainable fitness.
           </p>
           <div className="hero-cta" style={{ marginTop: '2rem' }}>
-            <a href="/contact" className="hero-btn hero-btn-primary">Get in Touch</a>
+            <Link href="/contact" className="hero-btn hero-btn-primary">Get in Touch</Link>
           </div>
         </div>
         <div className="hero-image-wrapper">

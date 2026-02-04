@@ -1,8 +1,13 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { getDocumentBySlug } from '@/sanity/lib/queries'
+import { getDocumentBySlug, getSlugs } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import PostContent from '@/app/components/PostContent'
+
+export async function generateStaticParams() {
+  const slugs = await getSlugs()
+  return slugs.map(({ slug }) => ({ slug }))
+}
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
