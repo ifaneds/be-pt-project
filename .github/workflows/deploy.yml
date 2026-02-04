@@ -19,8 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BASE_PATH: /${{ github.event.repository.name }}
-      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
-      NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+      NEXT_PUBLIC_SANITY_DATASET: ${{ vars.NEXT_PUBLIC_SANITY_DATASET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
       - name: Check Sanity secrets
         run: |
           if [ -z "$NEXT_PUBLIC_SANITY_PROJECT_ID" ] || [ -z "$NEXT_PUBLIC_SANITY_DATASET" ]; then
-            echo "::error::Missing GitHub Secrets. Add these in repo Settings → Secrets and variables → Actions:"
+            echo "::error::Missing GitHub Variables. Add these in repo Settings → Secrets and variables → Actions → Variables:"
             echo "  - NEXT_PUBLIC_SANITY_PROJECT_ID (your Sanity project ID)"
             echo "  - NEXT_PUBLIC_SANITY_DATASET (e.g. production)"
             exit 1
