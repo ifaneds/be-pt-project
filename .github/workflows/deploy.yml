@@ -19,8 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BASE_PATH: /${{ github.event.repository.name }}
-      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.NEXT_PUBLIC_SANITY_PROJECT_ID }}
-      NEXT_PUBLIC_SANITY_DATASET: ${{ vars.NEXT_PUBLIC_SANITY_DATASET }}
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+      NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
       - name: Check Sanity secrets
         run: |
           if [ -z "$NEXT_PUBLIC_SANITY_PROJECT_ID" ] || [ -z "$NEXT_PUBLIC_SANITY_DATASET" ]; then
-            echo "::error::Missing GitHub Variables. Add these in repo Settings → Secrets and variables → Actions → Variables:"
+            echo "::error::Missing GitHub Secrets. Add these in repo Settings → Secrets and variables → Actions → Secrets:"
             echo "  - NEXT_PUBLIC_SANITY_PROJECT_ID (your Sanity project ID)"
             echo "  - NEXT_PUBLIC_SANITY_DATASET (e.g. production)"
             exit 1
@@ -50,8 +50,13 @@ jobs:
           printf 'NEXT_PUBLIC_SANITY_PROJECT_ID=%s\nNEXT_PUBLIC_SANITY_DATASET=%s\n' \
             "$NEXT_PUBLIC_SANITY_PROJECT_ID" "$NEXT_PUBLIC_SANITY_DATASET" > .env.production
 
+      # Explicit env on the step so the build command (and Next.js workers) see the values
       - name: Build
-        run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+        run: npx --no-install next build
 
       - name: List export (debug)
         run: ls -la out/ && ls -la out/ 2>/dev/null | head -30
