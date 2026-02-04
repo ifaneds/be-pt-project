@@ -34,6 +34,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check Sanity secrets
+        run: |
+          if [ -z "$NEXT_PUBLIC_SANITY_PROJECT_ID" ] || [ -z "$NEXT_PUBLIC_SANITY_DATASET" ]; then
+            echo "::error::Missing GitHub Secrets. Add these in repo Settings → Secrets and variables → Actions:"
+            echo "  - NEXT_PUBLIC_SANITY_PROJECT_ID (your Sanity project ID)"
+            echo "  - NEXT_PUBLIC_SANITY_DATASET (e.g. production)"
+            exit 1
+          fi
+          echo "Sanity env vars are set."
+
       - name: Build
         run: npm run build
 
