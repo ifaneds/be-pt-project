@@ -41,6 +41,6 @@ function getClient(): SanityClient {
 // Lazy proxy: throw only when client is used, so env is read at call time (e.g. in worker)
 export const client = new Proxy({} as SanityClient, {
   get(_, prop) {
-    return (getClient() as Record<string | symbol, unknown>)[prop]
+    return (getClient() as unknown as Record<string | symbol, unknown>)[prop]
   },
 })
