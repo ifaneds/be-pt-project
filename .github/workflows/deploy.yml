@@ -17,8 +17,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: github-pages
     env:
       BASE_PATH: /${{ github.event.repository.name }}
+      # URL from Settings → Environments → github-pages → Environment variables
+      URL: ${{ vars.URL }}
       NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
       NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
     steps:
