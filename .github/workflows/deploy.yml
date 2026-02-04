@@ -44,11 +44,6 @@ jobs:
           fi
           echo "Sanity env vars are set."
 
-      - name: Create .env.production for build
-        run: |
-          echo "NEXT_PUBLIC_SANITY_PROJECT_ID=$NEXT_PUBLIC_SANITY_PROJECT_ID" >> .env.production
-          echo "NEXT_PUBLIC_SANITY_DATASET=$NEXT_PUBLIC_SANITY_DATASET" >> .env.production
-
       - name: Build
         run: npm run build
 
