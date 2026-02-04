@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react'
 import { getDocuments } from '@/sanity/lib/queries'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
+import Link from 'next/link'
 
 interface Document {
   _id: string
   _type: string
   name: string
+  slug?: { current?: string }
   description?: string
   image?: any
   _createdAt: string
@@ -41,35 +43,68 @@ export default function ResourceList({ filter }: ResourceListProps) {
   }, [filter])
 
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <div className="blog-state">
+        <div className="muted">Loading…</div>
+      </div>
+    )
   }
 
   if (documents.length === 0) {
-    return <div>No documents found.</div>
+    return (
+      <div className="blog-state">
+        <div className="h2">No content yet</div>
+        <div className="muted">Create a Blog, Guide, or Story in Sanity Studio and it’ll appear here.</div>
+        <Link className="button button-secondary" href="/studio">Open Studio</Link>
+      </div>
+    )
   }
 
   return (
-    <div style={{ display: 'grid', gap: '2rem', marginTop: '2rem' }}>
-      {documents.map((doc) => (
-        <article key={doc._id} style={{ border: '1px solid #ddd', padding: '1rem', borderRadius: '8px' }}>
-          {doc.image && (
-            <Image
-              src={urlFor(doc.image).width(400).height(300).url()}
-              alt={doc.name}
-              width={400}
-              height={300}
-              style={{ width: '100%', height: 'auto', borderRadius: '4px', marginBottom: '1rem' }}
-            />
-          )}
-          <h3 style={{ marginBottom: '0.5rem', color: 'var(--text-color)' }}>{doc.name}</h3>
-          {doc.description && (
-            <p style={{ marginBottom: '0.5rem', color: 'var(--text-color)' }}>{doc.description}</p>
-          )}
-          <span style={{ fontSize: '0.875rem', color: 'var(--accent-color-3)' }}>
-            Type: {doc._type}
-          </span>
-        </article>
-      ))}
+    <div className="blog-grid">
+      {documents.map((doc) => {
+        const slug = doc.slug?.current
+
+        const body = (
+          <>
+            {doc.image && (
+              <div className="blog-card-media">
+                <Image
+                  src={urlFor(doc.image).width(800).height(600).url()}
+                  alt={doc.image?.alt || doc.name}
+                  width={800}
+                  height={600}
+                  className="blog-card-image"
+                />
+              </div>
+            )}
+
+            <div className="blog-card-body">
+              <div className="blog-card-meta">
+                <span className="pill">{doc._type}</span>
+              </div>
+
+              <h2 className="blog-card-title">{doc.name}</h2>
+              {doc.description && <p className="blog-card-excerpt">{doc.description}</p>}
+            </div>
+          </>
+        )
+
+        return (
+          <article key={doc._id} className="blog-card">
+            {slug ? (
+              <Link className="blog-card-link" href={`/blog/${slug}`} aria-label={`Read ${doc.name}`}>
+                {body}
+              </Link>
+            ) : (
+              <div className="card">
+                <div className="h2">{doc.name}</div>
+                <div className="muted">Missing slug — add one in Studio to publish this item.</div>
+              </div>
+            )}
+          </article>
+        )
+      })}
     </div>
   )
 }

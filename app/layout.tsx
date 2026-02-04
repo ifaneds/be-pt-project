@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
-import Header from './components/header'
+import ConditionalHeader from './components/ConditionalHeader'
+import Footer from './components/footer'
 import './globals.css'
 
 // Configure Roboto font with Next.js font optimization
@@ -40,7 +41,7 @@ export default function RootLayout({
           TODO: Add global navigation component here
           Example: <Navigation /> or <Header />
         */}
-        <Header />
+        <ConditionalHeader />
         {/* 
           TODO: Add any global providers here
           Example: <ThemeProvider>, <AuthProvider>, etc.
@@ -49,10 +50,8 @@ export default function RootLayout({
         {/* This is where all your page content will be rendered */}
         {children}
         
-        {/* 
-          TODO: Add global footer component here
-          Example: <Footer />
-        */}
+        {/* Global footer */}
+        <Footer />
       </body>
     </html>
   )

@@ -10,6 +10,7 @@ export async function getDocuments(filterType?: string) {
       _id,
       _type,
       name,
+      slug,
       description,
       image,
       _createdAt
@@ -17,16 +18,34 @@ export async function getDocuments(filterType?: string) {
     return client.fetch(query, { filterType })
   }
 
-  query = groq`*[_type in ["blog", "event", "resource"]] | order(_createdAt desc) {
+  query = groq`*[_type in ["blog", "guide", "story"]] | order(_createdAt desc) {
     _id,
     _type,
     name,
+    slug,
     description,
     image,
     _createdAt
   }`
 
   return client.fetch(query)
+}
+
+export async function getDocumentBySlug(slug: string) {
+  const query = groq`*[
+    _type in ["blog", "guide", "story"] && slug.current == $slug
+  ][0] {
+    _id,
+    _type,
+    name,
+    slug,
+    description,
+    image,
+    content,
+    _createdAt
+  }`
+
+  return client.fetch(query, { slug })
 }
 
 // Get a single document by ID
