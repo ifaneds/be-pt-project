@@ -1,29 +1,46 @@
-import { createClient } from 'next-sanity'
+import { createClient, SanityClient } from 'next-sanity'
 
-// For client-side usage, use NEXT_PUBLIC_* variables
-// For server-side/Studio, env.ts uses SANITY_STUDIO_* variables
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || 
-                   process.env.SANITY_STUDIO_API_VERSION || 
-                   '2025-12-18'
-
-// Get values, handling empty strings
-const dataset = (process.env.NEXT_PUBLIC_SANITY_DATASET || 
-                 process.env.SANITY_STUDIO_DATASET)?.trim()
-
-const projectId = (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 
-                   process.env.SANITY_STUDIO_PROJECT_ID)?.trim()
-
-if (!dataset || dataset === '') {
-  throw new Error('Missing environment variable: NEXT_PUBLIC_SANITY_DATASET or SANITY_STUDIO_DATASET. Please set it in .env.local')
+function getConfig() {
+  const apiVersion =
+    process.env.NEXT_PUBLIC_SANITY_API_VERSION ||
+    process.env.SANITY_STUDIO_API_VERSION ||
+    '2025-12-18'
+  const dataset = (
+    process.env.NEXT_PUBLIC_SANITY_DATASET ||
+    process.env.SANITY_STUDIO_DATASET ||
+    ''
+  ).trim()
+  const projectId = (
+    process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ||
+    process.env.SANITY_STUDIO_PROJECT_ID ||
+    ''
+  ).trim()
+  if (!dataset || !projectId) {
+    throw new Error(
+      'Missing Sanity env: set NEXT_PUBLIC_SANITY_PROJECT_ID and NEXT_PUBLIC_SANITY_DATASET (or SANITY_STUDIO_*) in .env.local or CI.'
+    )
+  }
+  return { projectId, dataset, apiVersion }
 }
 
-if (!projectId || projectId === '') {
-  throw new Error('Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID or SANITY_STUDIO_PROJECT_ID. Please set it in .env.local')
+let _client: SanityClient | null = null
+
+function getClient(): SanityClient {
+  if (!_client) {
+    const { projectId, dataset, apiVersion } = getConfig()
+    _client = createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      useCdn: true,
+    })
+  }
+  return _client
 }
 
-export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
+// Lazy proxy: throw only when client is used, so env is read at call time (e.g. in worker)
+export const client = new Proxy({} as SanityClient, {
+  get(_, prop) {
+    return (getClient() as Record<string | symbol, unknown>)[prop]
+  },
 })

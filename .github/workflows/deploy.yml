@@ -44,6 +44,12 @@ jobs:
           fi
           echo "Sanity env vars are set."
 
+      # Next.js loads .env.production before spawning workers; job env is not passed to those workers
+      - name: Create .env.production
+        run: |
+          printf 'NEXT_PUBLIC_SANITY_PROJECT_ID=%s\nNEXT_PUBLIC_SANITY_DATASET=%s\n' \
+            "$NEXT_PUBLIC_SANITY_PROJECT_ID" "$NEXT_PUBLIC_SANITY_DATASET" > .env.production
+
       - name: Build
         run: npm run build
 
