@@ -25,7 +25,7 @@ function getConfig() {
 
 let _client: SanityClient | null = null
 
-function getClient(): SanityClient {
+export function getClient(): SanityClient {
   if (!_client) {
     const { projectId, dataset, apiVersion } = getConfig()
     _client = createClient({
@@ -38,9 +38,8 @@ function getClient(): SanityClient {
   return _client
 }
 
-// Lazy proxy: throw only when client is used, so env is read at call time (e.g. in worker)
-export const client = new Proxy({} as SanityClient, {
-  get(_, prop) {
-    return (getClient() as unknown as Record<string | symbol, unknown>)[prop]
-  },
-})
+// For code that imports client (e.g. live.ts); env is read when fetch is called
+export const client = {
+  fetch: (...args: Parameters<SanityClient['fetch']>) =>
+    getClient().fetch(...args),
+} as SanityClient

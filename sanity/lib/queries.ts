@@ -1,5 +1,5 @@
 import { groq } from 'next-sanity'
-import { client } from './client'
+import { getClient } from './client'
 
 // Get all documents, optionally filtered by type
 export async function getDocuments(filterType?: string) {
@@ -15,7 +15,7 @@ export async function getDocuments(filterType?: string) {
       image,
       _createdAt
     }`
-    return client.fetch(query, { filterType })
+    return getClient().fetch(query, { filterType })
   }
 
   query = groq`*[_type in ["blog", "guide", "story"]] | order(_createdAt desc) {
@@ -28,7 +28,7 @@ export async function getDocuments(filterType?: string) {
     _createdAt
   }`
 
-  return client.fetch(query)
+  return getClient().fetch(query)
 }
 
 // Get all slugs for static export (blog, guide, story)
@@ -36,7 +36,7 @@ export async function getSlugs(): Promise<{ slug: string }[]> {
   const query = groq`*[_type in ["blog", "guide", "story"] && defined(slug.current)] {
     "slug": slug.current
   }`
-  const docs = await client.fetch<{ slug: string }[]>(query)
+  const docs = await getClient().fetch<{ slug: string }[]>(query)
   return docs.filter((d) => d.slug)
 }
 
@@ -54,12 +54,12 @@ export async function getDocumentBySlug(slug: string) {
     _createdAt
   }`
 
-  return client.fetch(query, { slug })
+  return getClient().fetch(query, { slug })
 }
 
 // Get a single document by ID
 export async function getDocumentById(id: string) {
-  return client.fetch(
+  return getClient().fetch(
     groq`*[_id == $id][0] {
       _id,
       _type,
