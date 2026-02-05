@@ -213,8 +213,8 @@ p {
 /* Mobile nav: show only on mobile */
 .header-mobile {
   flex-direction: column;
-  gap: 1.5rem;
-  text-align: center;
+  gap: 0;
+  text-align: left;
 }
 
 .header-mobile {
@@ -280,8 +280,9 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
+  min-height: 100vh;
   z-index: 999;
   pointer-events: none;
 }
@@ -292,6 +293,7 @@ nav {
   left: 0;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   background: rgba(0, 0, 0, 0.3);
   pointer-events: auto;
 }
@@ -300,20 +302,83 @@ nav {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
+  height: 100%;
+  min-height: 100vh;
   background: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 5rem 2rem 2rem;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+  /* Top padding clears the fixed header (logo + burger) so options sit below it */
+  padding: 5rem 0 2rem 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-100%);
+  flex-direction: row;
+  align-items: flex-start;
+  transform: translateX(-100%);
   transition: transform 0.3s ease;
   pointer-events: auto;
 }
 
 .header-mobile-overlay .header-mobile-menu {
-  transform: translateY(0);
+  transform: translateX(0);
+}
+
+/* Mobile: main list on the left (fixed), never moves */
+.header-list.header-mobile {
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+  gap: 0;
+  width: 180px;
+  min-width: 180px;
+  flex-shrink: 0;
+  padding: 0 1.5rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.header-list.header-mobile .header-link {
+  display: block;
+  padding: 0.75rem 0;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.header-mobile-dropdown {
+  list-style: none;
+}
+
+.header-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Subpanel: appears to the right of main options */
+.header-mobile-subpanel {
+  padding: 0 1.5rem;
+  min-width: 140px;
+  background: #ffffff;
+}
+
+.header-mobile-sublist {
+  list-style: none;
+  padding: 0.75rem 0 0 0;
+  margin: 0;
+}
+
+.header-mobile-sublist .header-mobile-sublink {
+  display: block;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  color: var(--secondary-color);
+}
+
+.header-mobile-sublist .header-mobile-sublink:hover,
+.header-mobile-sublist .header-link-active {
+  color: var(--accent-color-2);
 }
 
 /* Responsive breakpoints */

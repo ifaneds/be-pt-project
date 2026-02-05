@@ -85,7 +85,11 @@ export default function Header() {
         {/* Mobile burger button */}
         <button
           className="header-burger"
-          onClick={() => setMobileMenuOpen((v) => !v)}
+          onClick={() => {
+            const next = !mobileMenuOpen
+            setMobileMenuOpen(next)
+            if (next) setResourcesOpen(false)
+          }}
           aria-label="Toggle menu"
           aria-expanded={mobileMenuOpen}
         >
@@ -94,14 +98,29 @@ export default function Header() {
           <span className="header-burger-line" />
         </button>
 
-        {/* Mobile menu overlay */}
+        {/* Mobile menu: 3 options fixed on left; Resources submenu appears in a panel to the right */}
         {mobileMenuOpen && (
           <div className="header-mobile-overlay">
-            <div className="header-mobile-backdrop" onClick={() => setMobileMenuOpen(false)} />
+            <div className="header-mobile-backdrop" onClick={() => { setMobileMenuOpen(false); setResourcesOpen(false) }} />
             <div className="header-mobile-menu">
               <ul className="header-list header-mobile">
                 {navLinks.slice(1).map((link) => {
-                  const isActive = pathname === link.href
+                  const isActive = pathname === link.href || (link.hasDropdown && pathname?.startsWith('/blog'))
+                  if (link.hasDropdown) {
+                    return (
+                      <li key={link.href} className="header-mobile-dropdown">
+                        <button
+                          type="button"
+                          className={`header-link header-mobile-toggle ${isActive ? 'header-link-active' : ''}`}
+                          onClick={() => setResourcesOpen((v) => !v)}
+                          aria-expanded={resourcesOpen}
+                        >
+                          Resources
+                          <span className="header-dropdown-arrow">{resourcesOpen ? '◀' : '▶'}</span>
+                        </button>
+                      </li>
+                    )
+                  }
                   return (
                     <li key={link.href}>
                       <Link
@@ -114,22 +133,27 @@ export default function Header() {
                     </li>
                   )
                 })}
-                <li className="header-mobile-section">Resources</li>
-                {resourceCategories.map((cat) => {
-                    const catActive = pathname === cat.href
-                    return (
-                      <li key={cat.href}>
-                        <Link
-                          href={cat.href}
-                          className={`header-link ${catActive ? 'header-link-active' : ''}`}
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {cat.label}
-                        </Link>
-                      </li>
-                    )
-                })}
               </ul>
+              {resourcesOpen && (
+                <div className="header-mobile-subpanel">
+                  <ul className="header-mobile-sublist">
+                    {resourceCategories.map((cat) => {
+                      const catActive = pathname === cat.href
+                      return (
+                        <li key={cat.href}>
+                          <Link
+                            href={cat.href}
+                            className={`header-link header-mobile-sublink ${catActive ? 'header-link-active' : ''}`}
+                            onClick={() => { setMobileMenuOpen(false); setResourcesOpen(false) }}
+                          >
+                            {cat.label}
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         )}

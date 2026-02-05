@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="site-footer-bottom">
-        © {new Date().getFullYear()} BE PT Project. All rights reserved.
+        © {new Date().getFullYear()} BE. All rights reserved.
       </div>
     </footer>
   )
