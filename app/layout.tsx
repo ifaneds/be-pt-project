@@ -27,8 +27,20 @@ const roboto = Roboto({
 const basePathForMeta = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export const metadata: Metadata = {
-  title: 'Next.js App',
-  description: 'A barebones Next.js application with TypeScript',
+  title: {
+    default: 'BE | Personal Coaching & Training',
+    template: '%s | BE',
+  },
+  description:
+    'Personal coaching, 1:1 training, online programming, and strength and endurance prep. Tailored programmes for your goals, schedule, and abilities.',
+  keywords: ['personal training', 'coaching', 'strength training', 'endurance', 'fitness', '1:1 coaching', 'online programming'],
+  authors: [{ name: 'BE' }],
+  creator: 'BE',
+  openGraph: {
+    type: 'website',
+    locale: 'en',
+    siteName: 'BE',
+  },
   icons: {
     icon: `${basePathForMeta}/favicon.ico`,
   },
