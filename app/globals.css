@@ -132,15 +132,35 @@ p {
   position: relative;
 }
 
-/* Dropdown toggle button */
+/* Dropdown toggle button – same look as desktop nav links */
 .header-dropdown-toggle {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.25rem;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
+  font: inherit;
+  color: var(--secondary-color);
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: 20px;
+  transition: color 0.2s ease;
+}
+.header-dropdown-toggle:hover {
+  color: var(--accent-color-1);
+}
+.header-dropdown-toggle:active,
+.header-link-active.header-dropdown-toggle {
+  color: var(--accent-color-2);
+}
+.header-link-active.header-dropdown-toggle {
+  font-weight: 700;
+}
+
+.header-dropdown-toggle:focus {
+  outline: none;
 }
 
 .header-dropdown-arrow {
@@ -156,7 +176,7 @@ p {
   transform: translateX(-50%);
   background: #ffffff;
   border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
   padding: 0.75rem 0;
   min-width: 160px;
   list-style: none;
@@ -229,7 +249,7 @@ header {
   width: 100%;
   background: #ffffff;
   z-index: 1000;
-  box-shadow: 0 2px 12px rgba(58, 33, 18, 0.08);
+  box-shadow: none;
   border-bottom: 1px solid rgba(255, 118, 0, 0.15);
 }
 
@@ -306,7 +326,7 @@ nav {
   height: 100%;
   min-height: 100vh;
   background: #ffffff;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
   /* Top padding clears the fixed header (logo + burger) so options sit below it */
   padding: 5rem 0 2rem 0;
   display: flex;
@@ -353,7 +373,14 @@ nav {
 .header-mobile-toggle {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 100%;
+  font: inherit;
+  transition: color 0.2s ease;
+}
+
+.header-mobile-toggle:focus {
+  outline: none;
 }
 
 /* Subpanel: appears to the right of main options */
@@ -371,12 +398,19 @@ nav {
 
 .header-mobile-sublist .header-mobile-sublink {
   display: block;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   font-size: 1rem;
+  font-weight: 500;
   color: var(--secondary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.header-mobile-sublist .header-mobile-sublink:hover,
+.header-mobile-sublist .header-mobile-sublink:hover {
+  color: var(--accent-color-1);
+}
+
+.header-mobile-sublist .header-mobile-sublink:active,
 .header-mobile-sublist .header-link-active {
   color: var(--accent-color-2);
 }
