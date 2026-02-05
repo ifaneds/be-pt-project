@@ -24,12 +24,17 @@ const roboto = Roboto({
 //   - Analytics scripts
 // ============================================================================
 
+const basePathForMeta = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
 export const metadata: Metadata = {
   title: 'Next.js App',
   description: 'A barebones Next.js application with TypeScript',
+  icons: {
+    icon: `${basePathForMeta}/favicon.ico`,
+  },
 }
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+const basePath = basePathForMeta
 
 export default function RootLayout({
   children,
