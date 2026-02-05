@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import TeamMemberCard from '../components/TeamMemberCard'
 import Image from 'next/image'
+import ImageGallery from '../components/ImageGallery'
 import { publicPath } from '../lib/public'
 
 export default function About() {
@@ -42,34 +43,14 @@ export default function About() {
               I&apos;m Bleddyn Edwards, founder of be — training and coaching, based in Wales, UK. I work as a personal trainer and coach, supporting people to build strength, confidence and sustainable fitness through clear, personalised coaching. My aim is to help people feel more capable in their bodies and better equipped to meet both everyday demands and more ambitious physical goals.
             </p>
           </div>
-          <div className="image-gallery" style={{ marginTop: '2.5rem', maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto' }}>
-            <div className="image-gallery-item">
-              <Image
-                src={publicPath('/IMG-20230821-WA0036.jpg')}
-                alt="Training"
-                width={800}
-                height={600}
-                className="image-gallery-image"
-              />
-            </div>
-            <div className="image-gallery-item">
-              <Image
-                src={publicPath('/IMG-20250407-WA0005.jpg')}
-                alt="Coaching"
-                width={800}
-                height={600}
-                className="image-gallery-image"
-              />
-            </div>
-            <div className="image-gallery-item">
-              <Image
-                src={publicPath('/20230607_110729.jpg')}
-                alt="Outdoor session"
-                width={800}
-                height={600}
-                className="image-gallery-image"
-              />
-            </div>
+          <div style={{ marginTop: '2.5rem', maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto' }}>
+            <ImageGallery
+              images={[
+                { src: publicPath('/IMG-20230821-WA0036.jpg'), alt: 'Training' },
+                { src: publicPath('/IMG-20250407-WA0005.jpg'), alt: 'Coaching' },
+                { src: publicPath('/20230607_110729.jpg'), alt: 'Outdoor session' },
+              ]}
+            />
           </div>
         </div>
       </section>

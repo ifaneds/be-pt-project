@@ -1,5 +1,5 @@
 import ContactForm from '../components/ContactForm'
-import Image from 'next/image'
+import ImageGallery from '../components/ImageGallery'
 import { publicPath } from '../lib/public'
 
 export default function Contact() {
@@ -7,25 +7,13 @@ export default function Contact() {
     <main>
       <section className="contact-section">
         <div className="contact-container">
-          <div className="image-gallery" style={{ marginBottom: '2.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
-            <div className="image-gallery-item">
-              <Image
-                src={publicPath('/20251226_115307.jpg')}
-                alt="Training environment"
-                width={800}
-                height={600}
-                className="image-gallery-image"
-              />
-            </div>
-            <div className="image-gallery-item">
-              <Image
-                src={publicPath('/IMG-20250408-WA0014.jpg')}
-                alt="Coaching"
-                width={800}
-                height={600}
-                className="image-gallery-image"
-              />
-            </div>
+          <div style={{ marginBottom: '2.5rem' }}>
+            <ImageGallery
+              images={[
+                { src: publicPath('/20251226_115307.jpg'), alt: 'Training environment' },
+                { src: publicPath('/IMG-20250408-WA0014.jpg'), alt: 'Coaching' },
+              ]}
+            />
           </div>
           <ContactForm
             title="Contact"

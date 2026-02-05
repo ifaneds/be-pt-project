@@ -1545,10 +1545,10 @@ nav {
   color: var(--primary-color);
 }
 
-/* Image Gallery - all images same size (4:3) */
+/* Image Gallery - always 2 columns, even number of cells (2x2 when 4 images) */
 .image-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
   margin: 2rem 0;
 }
@@ -1559,6 +1559,10 @@ nav {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   aspect-ratio: 4 / 3;
   position: relative;
+}
+
+.image-gallery-item:empty {
+  background: var(--card-bg, #f8f9fa);
 }
 
 .image-gallery-image {

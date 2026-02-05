@@ -6,6 +6,7 @@ import Hero from './components/Hero'
 import LoopgroepCard from './components/LoopgroepCard'
 import FAQ from './components/FAQ'
 import Image from 'next/image'
+import ImageGallery from './components/ImageGallery'
 import { motion } from 'framer-motion'
 import { publicPath } from './lib/public'
 
@@ -139,44 +140,14 @@ export default function Home() {
           <div className="loopgroep-header">
             <h2 className="loopgroep-title">In action</h2>
           </div>
-          <div className="image-gallery">
-            <div className="image-gallery-item">
-              <Image
-                src={publicPath('/IMG-20240612-WA0000.jpg')}
-                alt="Training outdoors"
-                width={800}
-                height={600}
-                className="image-gallery-image"
-              />
-            </div>
-            <div className="image-gallery-item">
-              <Image
-                src={publicPath('/IMG-20240315-WA0016.jpg')}
-                alt="Coaching session"
-                width={800}
-                height={600}
-                className="image-gallery-image"
-              />
-            </div>
-            <div className="image-gallery-item">
-              <Image
-                src={publicPath('/20250722_142925.jpg')}
-                alt="Training"
-                width={800}
-                height={600}
-                className="image-gallery-image"
-              />
-            </div>
-            <div className="image-gallery-item">
-              <Image
-                src={publicPath('/20250720_145933.jpg')}
-                alt="Fitness and movement"
-                width={800}
-                height={600}
-                className="image-gallery-image"
-              />
-            </div>
-          </div>
+          <ImageGallery
+            images={[
+              { src: publicPath('/IMG-20240612-WA0000.jpg'), alt: 'Training outdoors' },
+              { src: publicPath('/IMG-20240315-WA0016.jpg'), alt: 'Coaching session' },
+              { src: publicPath('/20250722_142925.jpg'), alt: 'Training' },
+              { src: publicPath('/20250720_145933.jpg'), alt: 'Fitness and movement' },
+            ]}
+          />
         </div>
       </section>
 
