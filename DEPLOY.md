@@ -39,18 +39,20 @@ After the first successful run of the **Deploy to GitHub Pages** workflow, the s
 
 (Replace `YOUR_USERNAME` and `be-pt-project` with your GitHub username and repo name.)
 
-## 4. Add Sanity CORS origin (required for blog/resources)
+## 4. Add Sanity CORS origin (required for blog, resources, and Studio)
 
-The blog and resources pages fetch content from Sanity in the browser. Sanity only allows requests from origins you approve.
+The blog, resources, and **Studio** all talk to Sanity from the browser. Sanity only allows requests from origins you approve.
 
 1. Go to **[manage.sanity.io](https://manage.sanity.io)** and select your project.
 2. Open **API** → **CORS origins** (or **Settings** → **API** → **CORS origins**).
 3. Click **Add origin** and add:
    - **`https://YOUR_USERNAME.github.io`**  
      (e.g. `https://ifaneds.github.io` — no trailing slash, no path)
-4. Save. Allow credentials if you use a studio on the same domain; for read-only data you can leave it off.
+4. **Enable “Allow credentials”** for this origin (checkbox in the CORS list).  
+   This is **required for the Studio**: it uses the Management API with cookies/auth, and the browser will block those requests unless credentials are allowed.
+5. Save.
 
-After this, the blog and resources lists should load without CORS or 403 errors.
+After this, the blog and resources lists should load, and the Studio at `https://YOUR_USERNAME.github.io/be-pt-project/studio` should load and log in without CORS or 403 errors.
 
 ## 5. Optional: favicon
 
