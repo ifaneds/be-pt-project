@@ -38,7 +38,7 @@ export default function About() {
           </div>
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
             <p style={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'var(--accent-color-3)' }}>
-              I'm Bleddyn Edwards, founder of be — training and coaching, based in Wales, UK. I work as a personal trainer and coach, supporting people to build strength, confidence and sustainable fitness through clear, personalised coaching. My aim is to help people feel more capable in their bodies and better equipped to meet both everyday demands and more ambitious physical goals.
+              I&apos;m Bleddyn Edwards, founder of be — training and coaching, based in Wales, UK. I work as a personal trainer and coach, supporting people to build strength, confidence and sustainable fitness through clear, personalised coaching. My aim is to help people feel more capable in their bodies and better equipped to meet both everyday demands and more ambitious physical goals.
             </p>
           </div>
           <div className="image-gallery" style={{ marginTop: '2.5rem', maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto' }}>

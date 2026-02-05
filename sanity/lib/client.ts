@@ -1,6 +1,8 @@
 import { createClient, SanityClient } from 'next-sanity'
 
-function getConfig() {
+export type SanityConfig = { projectId: string; dataset: string; apiVersion: string }
+
+function getConfig(): SanityConfig | null {
   const apiVersion =
     process.env.NEXT_PUBLIC_SANITY_API_VERSION ||
     process.env.SANITY_STUDIO_API_VERSION ||
@@ -15,19 +17,25 @@ function getConfig() {
     process.env.SANITY_STUDIO_PROJECT_ID ||
     ''
   ).trim()
-  if (!dataset || !projectId) {
-    throw new Error(
-      'Missing Sanity env: set NEXT_PUBLIC_SANITY_PROJECT_ID and NEXT_PUBLIC_SANITY_DATASET (or SANITY_STUDIO_*) in .env.local or CI.'
-    )
-  }
+  if (!dataset || !projectId) return null
   return { projectId, dataset, apiVersion }
+}
+
+export function hasSanityConfig(): boolean {
+  return getConfig() !== null
 }
 
 let _client: SanityClient | null = null
 
 export function getClient(): SanityClient {
   if (!_client) {
-    const { projectId, dataset, apiVersion } = getConfig()
+    const config = getConfig()
+    if (!config) {
+      throw new Error(
+        'Missing Sanity env: set NEXT_PUBLIC_SANITY_PROJECT_ID and NEXT_PUBLIC_SANITY_DATASET (or SANITY_STUDIO_*) in .env.local or CI.'
+      )
+    }
+    const { projectId, dataset, apiVersion } = config
     _client = createClient({
       projectId,
       dataset,

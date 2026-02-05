@@ -174,21 +174,20 @@ function TwoColumn({ node }: { node: TwoColumn }) {
 }
 
 export default function PostContent({ content }: { content: ContentNode[] }) {
-  let listMode: 'bullet' | 'number' | null = null
-  let listItems: React.ReactNode[] = []
+  const listState = { mode: null as 'bullet' | 'number' | null, items: [] as React.ReactNode[] }
 
   function flushList() {
-    if (!listMode || listItems.length === 0) return null
+    if (!listState.mode || listState.items.length === 0) return null
 
     const out =
-      listMode === 'bullet' ? (
-        <ul className="list" style={{ paddingLeft: '1.25rem' }}>{listItems}</ul>
+      listState.mode === 'bullet' ? (
+        <ul className="list" style={{ paddingLeft: '1.25rem' }}>{listState.items}</ul>
       ) : (
-        <ol className="list" style={{ paddingLeft: '1.25rem' }}>{listItems}</ol>
+        <ol className="list" style={{ paddingLeft: '1.25rem' }}>{listState.items}</ol>
       )
 
-    listMode = null
-    listItems = []
+    listState.mode = null
+    listState.items.length = 0
     return out
   }
 
@@ -196,15 +195,15 @@ export default function PostContent({ content }: { content: ContentNode[] }) {
 
   content.forEach((node, idx) => {
     if (node._type === 'block' && node.listItem) {
-      if (!listMode) listMode = node.listItem
-      if (listMode !== node.listItem) {
+      if (!listState.mode) listState.mode = node.listItem
+      if (listState.mode !== node.listItem) {
         const flushed = flushList()
         if (flushed) nodes.push(<div key={`list-${idx}`}>{flushed}</div>)
-        listMode = node.listItem
+        listState.mode = node.listItem
       }
 
-      listItems.push(
-        <li key={node._key || `li-${idx}`} style={{ marginBottom: '0.35rem' }}>
+      listState.items.push(
+        <li key={node._key ?? `li-${idx}`} style={{ marginBottom: '0.35rem' }}>
           <span style={{ color: 'var(--secondary-color)', lineHeight: 1.65 }}>{renderSpans(node)}</span>
         </li>
       )

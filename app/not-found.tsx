@@ -15,7 +15,7 @@ export default function NotFound() {
   return (
     <main>
       <h1>404 - Page Not Found</h1>
-      <p>The page you're looking for doesn't exist.</p>
+      <p>The page you&apos;re looking for doesn&apos;t exist.</p>
       <Link href="/" className="header-link">
         Return Home
       </Link>

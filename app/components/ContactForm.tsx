@@ -43,7 +43,7 @@ export default function ContactForm({ title, description, email }: ContactFormPr
         animate={{ opacity: 1, scale: 1 }}
       >
         <h3 className="contact-form-success-title">Thank you!</h3>
-        <p className="contact-form-success-text">Your message has been sent. I'll get back to you as soon as possible.</p>
+        <p className="contact-form-success-text">Your message has been sent. I&apos;ll get back to you as soon as possible.</p>
       </motion.div>
     )
   }

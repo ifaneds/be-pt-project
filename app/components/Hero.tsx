@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -22,11 +22,7 @@ interface HeroProps {
 }
 
 export default function Hero({ title, tagline, stats, ctaPrimary, ctaSecondary }: HeroProps) {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    setIsVisible(true)
-  }, [])
+  const [isVisible, setIsVisible] = useState(true)
 
   return (
     <section className="hero-section">
@@ -44,7 +40,7 @@ export default function Hero({ title, tagline, stats, ctaPrimary, ctaSecondary }
         <motion.div
           className="hero-stats"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
         >
           {stats.map((stat, index) => (

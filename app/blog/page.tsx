@@ -1,7 +1,7 @@
 'use client'
 
-import { Suspense, useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
+import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import FilterBar from '../components/filterBar'
 import ResourceList from '../components/ResourceList'
 
@@ -11,16 +11,26 @@ const filterOptions = [
   { label: 'Stories', value: 'story' },
 ]
 
+type FilterValue = 'all' | 'blog' | 'guide' | 'story'
+
 function BlogPageContent() {
   const searchParams = useSearchParams()
-  const [selectedFilter, setSelectedFilter] = useState<'all' | 'blog' | 'guide' | 'story'>('all')
+  const router = useRouter()
+  const pathname = usePathname()
+  const filterParam = searchParams.get('filter')
+  const selectedFilter: FilterValue =
+    filterParam === 'blog' || filterParam === 'guide' || filterParam === 'story'
+      ? filterParam
+      : 'all'
 
-  useEffect(() => {
-    const filter = searchParams.get('filter')
-    if (filter === 'blog' || filter === 'guide' || filter === 'story') {
-      setSelectedFilter(filter)
-    }
-  }, [searchParams])
+  const handleFilterChange = (v: string) => {
+    const next = (v as FilterValue) || 'all'
+    const params = new URLSearchParams(searchParams.toString())
+    if (next === 'all') params.delete('filter')
+    else params.set('filter', next)
+    const q = params.toString()
+    router.push(q ? `${pathname}?${q}` : pathname)
+  }
 
   return (
     <main>
@@ -39,7 +49,7 @@ function BlogPageContent() {
             <FilterBar
               options={filterOptions}
               selectedFilter={selectedFilter}
-              onFilterChange={(v) => setSelectedFilter((v as 'all' | 'blog' | 'guide' | 'story') || 'all')}
+              onFilterChange={handleFilterChange}
             />
           </div>
           <ResourceList filter={selectedFilter} />

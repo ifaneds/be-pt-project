@@ -1,5 +1,5 @@
 import { groq } from 'next-sanity'
-import { getClient } from './client'
+import { getClient, hasSanityConfig } from './client'
 
 // Get all documents, optionally filtered by type
 export async function getDocuments(filterType?: string) {
@@ -33,6 +33,7 @@ export async function getDocuments(filterType?: string) {
 
 // Get all slugs for static export (blog, guide, story)
 export async function getSlugs(): Promise<{ slug: string }[]> {
+  if (!hasSanityConfig()) return []
   const query = groq`*[_type in ["blog", "guide", "story"] && defined(slug.current)] {
     "slug": slug.current
   }`

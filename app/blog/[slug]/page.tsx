@@ -11,7 +11,12 @@ export async function generateStaticParams() {
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const doc = await getDocumentBySlug(slug)
+  let doc
+  try {
+    doc = await getDocumentBySlug(slug)
+  } catch {
+    notFound()
+  }
 
   if (!doc) notFound()
 
