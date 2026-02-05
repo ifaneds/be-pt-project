@@ -1,5 +1,6 @@
 import ContactForm from '../components/ContactForm'
 import Image from 'next/image'
+import { publicPath } from '../lib/public'
 
 export default function Contact() {
   return (
@@ -9,7 +10,7 @@ export default function Contact() {
           <div className="image-gallery" style={{ marginBottom: '2.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
             <div className="image-gallery-item">
               <Image
-                src="/20251226_115307.jpg"
+                src={publicPath('/20251226_115307.jpg')}
                 alt="Training environment"
                 width={800}
                 height={600}
@@ -18,7 +19,7 @@ export default function Contact() {
             </div>
             <div className="image-gallery-item">
               <Image
-                src="/IMG-20250408-WA0014.jpg"
+                src={publicPath('/IMG-20250408-WA0014.jpg')}
                 alt="Coaching"
                 width={800}
                 height={600}

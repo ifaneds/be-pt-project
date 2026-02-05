@@ -50,16 +50,20 @@ jobs:
       # Next.js loads .env.production before spawning workers; job env is not passed to those workers
       - name: Create .env.production
         run: |
-          printf 'NEXT_PUBLIC_SANITY_PROJECT_ID=%s\nNEXT_PUBLIC_SANITY_DATASET=%s\n' \
-            "$NEXT_PUBLIC_SANITY_PROJECT_ID" "$NEXT_PUBLIC_SANITY_DATASET" > .env.production
+          printf 'NEXT_PUBLIC_SANITY_PROJECT_ID=%s\nNEXT_PUBLIC_SANITY_DATASET=%s\nNEXT_PUBLIC_BASE_PATH=/%s\n' \
+            "$NEXT_PUBLIC_SANITY_PROJECT_ID" "$NEXT_PUBLIC_SANITY_DATASET" "${{ github.event.repository.name }}" > .env.production
 
       # Explicit env on the step so the build command (and Next.js workers) see the values
       - name: Build
         env:
           BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
           NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
           NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
         run: npx --no-install next build
+
+      - name: Copy public assets into export
+        run: cp -r public/. out/ 2>/dev/null || true
 
       - name: List export (debug)
         run: ls -la out/ && ls -la out/ 2>/dev/null | head -30

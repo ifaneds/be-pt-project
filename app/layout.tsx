@@ -29,13 +29,19 @@ export const metadata: Metadata = {
   description: 'A barebones Next.js application with TypeScript',
 }
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={roboto.variable}>
+    <html
+      lang="en"
+      className={roboto.variable}
+      style={{ ['--logo-mask-image' as string]: `url('${basePath}/be-logo.svg')` }}
+    >
       <body>
         {/* 
           TODO: Add global navigation component here

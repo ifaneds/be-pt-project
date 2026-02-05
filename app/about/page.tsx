@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import TeamMemberCard from '../components/TeamMemberCard'
 import Image from 'next/image'
+import { publicPath } from '../lib/public'
 
 export default function About() {
   const teamMembers = [
@@ -21,7 +22,7 @@ export default function About() {
         </div>
         <div className="hero-image-wrapper">
           <Image
-            src="/portrait.jpeg"
+            src={publicPath('/portrait.jpeg')}
             alt="Bleddyn Edwards - Founder & Personal Trainer"
             width={800}
             height={600}
@@ -44,7 +45,7 @@ export default function About() {
           <div className="image-gallery" style={{ marginTop: '2.5rem', maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto' }}>
             <div className="image-gallery-item">
               <Image
-                src="/IMG-20230821-WA0036.jpg"
+                src={publicPath('/IMG-20230821-WA0036.jpg')}
                 alt="Training"
                 width={800}
                 height={600}
@@ -53,7 +54,7 @@ export default function About() {
             </div>
             <div className="image-gallery-item">
               <Image
-                src="/IMG-20250407-WA0005.jpg"
+                src={publicPath('/IMG-20250407-WA0005.jpg')}
                 alt="Coaching"
                 width={800}
                 height={600}
@@ -62,7 +63,7 @@ export default function About() {
             </div>
             <div className="image-gallery-item">
               <Image
-                src="/20230607_110729.jpg"
+                src={publicPath('/20230607_110729.jpg')}
                 alt="Outdoor session"
                 width={800}
                 height={600}

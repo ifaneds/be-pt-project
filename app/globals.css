@@ -78,10 +78,10 @@ p {
   width: 100px;
   height: 100px;
   display: inline-block;
-  /* Use the actual SVG file as a mask */
-  mask: url('/be-logo.svg') no-repeat center;
+  /* Use the actual SVG file as a mask (path set in layout for basePath) */
+  mask: var(--logo-mask-image) no-repeat center;
   mask-size: contain;
-  -webkit-mask: url('/be-logo.svg') no-repeat center;
+  -webkit-mask: var(--logo-mask-image) no-repeat center;
   -webkit-mask-size: contain;
   /* Control the color with background-color - inherits from parent */
   background-color: var(--accent-color-1);

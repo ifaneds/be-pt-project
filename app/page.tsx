@@ -7,6 +7,7 @@ import LoopgroepCard from './components/LoopgroepCard'
 import FAQ from './components/FAQ'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { publicPath } from './lib/public'
 
 export default function Home() {
   const heroStats = [
@@ -66,7 +67,7 @@ export default function Home() {
         <div className="hero-with-image-content">
           <h1 className="hero-title">
             <Image
-              src="/be-logo.svg"
+              src={publicPath('/be-logo.svg')}
               alt="be"
               width={48}
               height={48}
@@ -87,7 +88,7 @@ export default function Home() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <Image
-                  src="/be-logo.svg"
+                  src={publicPath('/be-logo.svg')}
                   alt="be"
                   width={24}
                   height={24}
@@ -104,7 +105,7 @@ export default function Home() {
         </div>
         <div className="hero-image-wrapper">
           <Image
-            src="/20231003_115122.jpg"
+            src={publicPath('/20231003_115122.jpg')}
             alt="Training session"
             width={800}
             height={600}
@@ -141,7 +142,7 @@ export default function Home() {
           <div className="image-gallery">
             <div className="image-gallery-item">
               <Image
-                src="/IMG-20240612-WA0000.jpg"
+                src={publicPath('/IMG-20240612-WA0000.jpg')}
                 alt="Training outdoors"
                 width={800}
                 height={600}
@@ -150,7 +151,7 @@ export default function Home() {
             </div>
             <div className="image-gallery-item">
               <Image
-                src="/IMG-20240315-WA0016.jpg"
+                src={publicPath('/IMG-20240315-WA0016.jpg')}
                 alt="Coaching session"
                 width={800}
                 height={600}
@@ -159,7 +160,7 @@ export default function Home() {
             </div>
             <div className="image-gallery-item">
               <Image
-                src="/20250722_142925.jpg"
+                src={publicPath('/20250722_142925.jpg')}
                 alt="Training"
                 width={800}
                 height={600}
@@ -168,7 +169,7 @@ export default function Home() {
             </div>
             <div className="image-gallery-item">
               <Image
-                src="/20250720_145933.jpg"
+                src={publicPath('/20250720_145933.jpg')}
                 alt="Fitness and movement"
                 width={800}
                 height={600}
