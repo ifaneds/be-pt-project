@@ -4,13 +4,16 @@ import { getDocumentBySlug, getSlugs } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import PostContent from '@/app/components/PostContent'
 
+// With output: 'export', Next.js requires at least one param for dynamic routes.
 export async function generateStaticParams() {
   const slugs = await getSlugs()
+  if (slugs.length === 0) return [{ slug: '__no_posts' }]
   return slugs.map(({ slug }) => ({ slug }))
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
+  if (slug === '__no_posts') notFound()
   let doc
   try {
     doc = await getDocumentBySlug(slug)
