@@ -13,8 +13,9 @@ import {apiVersion, dataset, projectId} from './sanity/env'
 import {schema} from './sanity/schemaTypes'
 import {structure} from './sanity/structure'
 
+const appBasePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 export default defineConfig({
-  basePath: '/studio',
+  basePath: `${appBasePath}/studio`,
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
