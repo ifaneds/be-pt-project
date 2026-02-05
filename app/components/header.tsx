@@ -116,7 +116,6 @@ export default function Header() {
                           aria-expanded={resourcesOpen}
                         >
                           Resources
-                          <span className="header-dropdown-arrow">{resourcesOpen ? '◀' : '▶'}</span>
                         </button>
                       </li>
                     )
