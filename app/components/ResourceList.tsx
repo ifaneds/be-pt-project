@@ -5,6 +5,7 @@ import { getDocuments } from '@/sanity/lib/queries'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
+import { blogPostHref } from '@/app/lib/public'
 
 interface Document {
   _id: string
@@ -93,7 +94,7 @@ export default function ResourceList({ filter }: ResourceListProps) {
         return (
           <article key={doc._id} className="blog-card">
             {slug ? (
-              <Link className="blog-card-link" href={`/blog/${slug}`} aria-label={`Read ${doc.name}`}>
+              <Link className="blog-card-link" href={blogPostHref(slug)} aria-label={`Read ${doc.name}`}>
                 {body}
               </Link>
             ) : (
