@@ -66,16 +66,26 @@ export default function Home() {
     <main>
       <section className="hero-with-image">
         <div className="hero-with-image-content">
-          <h1 className="hero-title">
+          <div className="hero-image-wrapper">
             <Image
-              src={publicPath('/be-logo.svg')}
-              alt="be"
-              width={48}
-              height={48}
-              className="hero-title-logo"
+              src={publicPath('/20231003_115122.jpg')}
+              alt="Training session"
+              width={800}
+              height={600}
+              priority
+              style={{ objectFit: 'cover' }}
             />
-            <span> your better self</span>
-          </h1>
+            <h1 className="hero-title hero-title-overlay">
+              <Image
+                src={publicPath('/be-logo.svg')}
+                alt="be"
+                width={50}
+                height={50}
+                className="hero-title-logo"
+              />
+              <span> your better self</span>
+            </h1>
+          </div>
           <p className="hero-tagline">
             Personal training and coaching to help you build strength, confidence and sustainable fitness. Based in Wales, serving clients everywhere.
           </p>
@@ -95,7 +105,7 @@ export default function Home() {
                   height={24}
                   className="hero-phrase-logo"
                 />
-                <span className="hero-phrase-text">be {word}</span>
+                <span className="hero-phrase-text"> {word}</span>
               </motion.div>
             ))}
           </div>
@@ -103,16 +113,6 @@ export default function Home() {
             <Link href="/contact" className="hero-btn hero-btn-primary">Start Your Journey</Link>
             <Link href="/about" className="hero-btn hero-btn-secondary">Learn More</Link>
           </div>
-        </div>
-        <div className="hero-image-wrapper">
-          <Image
-            src={publicPath('/20231003_115122.jpg')}
-            alt="Training session"
-            width={800}
-            height={600}
-            priority
-            style={{ objectFit: 'cover' }}
-          />
         </div>
       </section>
 
